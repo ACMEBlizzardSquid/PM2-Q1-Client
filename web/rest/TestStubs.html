@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="__FILE_ENCODING__"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+    <head>
+        <title>Javascript client stub for RESTful Web Services - Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/clientstubs.css" type="text/css"/>
+        <link rel="stylesheet" href="./css/css_master-all.css" type="text/css"/>
+        <!-- JS_DECLARE_START - DO NOT REMOVE-->
+        <script type="text/javascript" src="./Support.js"></script>
+        <script type='text/javascript' src='./pm2-q1/PM2-Q1.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_discountcode.js'></script>
+        <script type='text/javascript' src='./pm2-q1/DiscountCode.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_micromarket.js'></script>
+        <script type='text/javascript' src='./pm2-q1/MicroMarket.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_customer.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Customer.js'></script>
+
+        <!-- JS_DECLARE_END - DO NOT REMOVE-->
+        <!--<script type="text/javascript">
+            //rest debug, uncomment to enable debugging
+            var rjsConfig = {
+                isDebug: true
+            };
+        </script>-->
+    </head>
+    <body>
+        <div class="outerBorder">
+            <div class="header">
+                <div id="subheader" class="subheader"></div> <!-- sub-header -->
+                <div class="banner"><img src="./css/images/pname-clientstubs.png"/></div>
+            </div> <!-- header -->
+            <div id="main" class="main">
+                <h2>Javascript client stub for RESTful Web Services - Test</h2>
+                <div id="containerContent"> </div>
+                <!-- JS_USAGE_START - DO NOT REMOVE-->
+
+                <!-- Using JavaScript files for project PM2-Q1-->
+                <script language='Javascript'>
+                    var str = '';                           //Example test code for PM2-Q1
+                    str = '<h2>Resources for PM2-Q1:</h2><br><table border="1">';
+                    var app = new PM2-Q1('http://localhost:8080/PM2-Q1/webresources');
+                        //Unc omment below if using proxy for javascript cross-domain.
+                        //app.setProxy("http://localhost:80 8 0/P M 2-Q1-Client/restprox y "); 
+                        var resources = app.getResources();
+                            for(i=0;i<resources.length;i++) {
+                                    var r esource = resources[i];
+                                    var uri = resource.getUri();
+                                        str += '<tr><td val ign="top"><a href="'+uri+'" target = "_bl a nk">'+uri+'</a></td> < td>' ; 
+                                    var items  = resource.getEntities();
+                            if (items != undefined) {
+                            if (items.length > 0) {
+                            for(j=0;j<items.length;j++) {
+                                    var item   = i t ems[j];
+                                var uri2 = item.getUri();
+                    if ( uri2 != null && uri2 != undefined ){
+                    str += '<a href="'+uri2+'" target="_blank">'+uri2+'</a><br/>';
+                    }
+                                str += '&nbsp;&nbsp;<font size="-3">'+item.toString()+'</font><br/>';
+                              }
+                            } else {
+                              str += 'No items detected';
+                            }
+                          } else {
+                            str += 'No items, please check the url: <a href="'+uri+'" target="_blank">'+uri+'</a>.<br/>Set proxy if RESTful web service is not running on the same domain as this application.';
+                          }
+                          str += '</td></tr>';
+                        }
+                        str += '</table><br>';
+                        var n = document.getElementById('containerContent');
+                        n.innerHTML = n.innerHTML + str;
+
+                </script>
+
+                <!-- JS_USAGE_END - DO NOT REMOVE--> 
+            </div> <!-- main -->
+        </div> <!-- outerborder -->
+    </body>
+</html>
