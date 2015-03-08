@@ -32,6 +32,7 @@ and open the template in the editor.
             var app       = new PM2Q1('http://localhost:8080/PM2-Q1/webresources');
             var resources = app.getResources();
             var str       = '';
+            var custs     = {};
             
             str += '<h1>Customer</h1>';
             str += '<table>';
@@ -63,6 +64,34 @@ and open the template in the editor.
                 str += '<td>' + item.phone + '</td>';
                 str += '<td>' + item.fax + '</td>';
                 str += '<td>' + item.email + '</td>';
+                str += '</tr>';
+                
+                if (!custs[item.discountCode.discountCode]) {
+                    custs[item.discountCode.discountCode] = '';
+                }
+                
+                custs[item.discountCode.discountCode] += item.customerId + ', ';
+            }
+            
+            str += '</table>';
+            
+            str += '<h1>Discount Code</h1>';
+            
+            str += '<table>';
+            str += '<tr>';
+            str += '<th>Dis-code</th>';
+            str += '<th>Rate</th>';
+            str += '<th>Customer IDs</th>';
+            str += '</tr>';
+            
+            items = resources[0].getEntities();
+            
+            for (i = 0; i < items.length; i += 1) {
+                item = items[i].ref;
+                str += '<tr>';
+                str += '<td>' + item.discountCode + '</td>';
+                str += '<td>' + item.rate + '</td>';
+                str += '<td>' + custs[item.discountCode] + '</td>';
                 str += '</tr>';
             }
             
