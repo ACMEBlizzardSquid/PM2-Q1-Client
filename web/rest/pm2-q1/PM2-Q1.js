@@ -24,7 +24,7 @@ if (!this.initialized)
         init : function() {
          this.resources[0] = new Entities_discountcode(this.uri+'/entities.discountcode/');
          this.resources[1] = new Entities_customer(this.uri+'/entities.customer/');
-            this.initialized = true;
+         this.initialized = true;
         },
         flush : function(resources_) {
 for (j = 0; j < resources_.length; j++) {
