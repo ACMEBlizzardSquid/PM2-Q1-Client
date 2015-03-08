@@ -40,15 +40,7 @@ Entities_customer.prototype = {
         var result = new Array();
         for (var prop in myObj) {
             var ref = myObj[prop];
-            var j = 0;
-            for (j = 0; j < ref.length; j++) {
-                if (ref[j]['@uri'] != null && ref[j]['@uri'] != undefined) {
-                    result[j] = new Customer(ref[j], ref[j]['@uri']);
-                }
-                else {
-                    result[j] = new Customer(ref[j]);
-                }
-            }
+            result.push(new Customer(ref, this.uri + ref.customerId));
         }
         return result;
     },

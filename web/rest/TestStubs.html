@@ -46,20 +46,20 @@
                         //app.setProxy("http://localhost:80 8 0/P M 2-Q1-Client/restprox y "); 
                         var resources = app.getResources();
                             for(i=0;i<resources.length;i++) {
-                                    var r esource = resources[i];
+                                    var resource = resources[i];
                                     var uri = resource.getUri();
-                                        str += '<tr><td val ign="top"><a href="'+uri+'" target = "_bl a nk">'+uri+'</a></td> < td>' ; 
+                                        str += '<tr><td valign="top"><a href="'+uri+'" target = "_blank">'+uri+'</a></td> <td>' ; 
                                     var items  = resource.getEntities();
                             if (items != undefined) {
-                            if (items.length > 0) {
-                            for(j=0;j<items.length;j++) {
-                                    var item   = i t ems[j];
-                                var uri2 = item.getUri();
-                    if ( uri2 != null && uri2 != undefined ){
-                    str += '<a href="'+uri2+'" target="_blank">'+uri2+'</a><br/>';
-                    }
-                                str += '&nbsp;&nbsp;<font size="-3">'+item.toString()+'</font><br/>';
-                              }
+                                if (items.length > 0) {
+                                    for(j=0;j<items.length;j++) {
+                                            var item = items[j];
+                                        var uri2 = item.getUri();
+                            if ( uri2 != null && uri2 != undefined ){
+                            str += '<a href="'+uri2+'" target="_blank">'+uri2+'</a><br/>';
+                            }
+                                        str += '&nbsp;&nbsp;<font size="-3">'+item.toString()+'</font><br/>';
+                                      }
                             } else {
                               str += 'No items detected';
                             }
