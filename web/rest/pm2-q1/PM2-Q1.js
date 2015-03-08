@@ -2,13 +2,13 @@
  * PM2-Q1 stub
  */
 
-function PM2 - Q1() {}
+function PM2Q1() {}
 
-function PM2 - Q1(uri_) {
+function PM2Q1(uri_) {
 this.uri = uri_;
         }
 
-PM2 - Q1.prototype = {
+PM2Q1.prototype = {
 
         uri : 'http://localhost:8080/PM2-Q1/webresources',
         resources : new Array(),
