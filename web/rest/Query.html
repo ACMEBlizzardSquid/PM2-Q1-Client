@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- JS_DECLARE_START - DO NOT REMOVE-->
+        <script type="text/javascript" src="./Support.js"></script>
+        <script type='text/javascript' src='./pm2-q1/PM2-Q1.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_discountcode.js'></script>
+        <script type='text/javascript' src='./pm2-q1/DiscountCode.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_micromarket.js'></script>
+        <script type='text/javascript' src='./pm2-q1/MicroMarket.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Entities_customer.js'></script>
+        <script type='text/javascript' src='./pm2-q1/Customer.js'></script>
+    </head>
+    <body>
+        <h1>Javascript client for CustomerDB Restful Web Service</h1>
+        <h2>Search for customers</h2>
+        <br />
+        <br />
+        <table id="inputs">
+            <tr>
+                <th>Field</th>
+                <th>Comparison</th>
+                <th>Value</th>
+            </tr>
+        </table>
+        <br />
+        <button id="submit">Submit</button>
+        <div id="resources">
+            
+        </div>
+        
+        <script>
+            var app       = new PM2Q1('http://localhost:8080/PM2-Q1/webresources');
+            var resources = app.getResources();
+            var custs     = {};
+            
+            // a list of program inputs
+            var inputs = {
+                'addressline1': { display: 'Address Line 1' },
+                'addressline2': {display: 'Address Line 2' },
+                'city': { display: 'City' },
+                'creditLimit': { display: 'Credit Limit' },
+                'customerId': { display: 'Customer ID' },
+                'email': { display: 'Email' },
+                'fax': { display: 'Fax' },
+                'name': { display: 'Name' },
+                'phone': { display: 'Phone' },
+                'state': { display: 'State' }
+            };
+            
+
+            /**
+             * Performs a query
+             */
+            function load () {
+                
+                var queryString = function () {
+                    var qs = '?';
+                    var prop;
+                    var input;
+                    for (prop in inputs) {
+                        input = inputs[prop];
+                        if (input.value) {
+                            qs += prop + '=' + input.comparison + input.value + '&';
+                        }
+                    }
+                    qs = qs.substring(0, qs.length - 1);
+                    return qs;
+                }();
+                
+                var items = resources[1].getEntities(queryString);
+                            
+                var str       = '';
+                str += '<h1>Customer</h1>';
+                str += '<table>';
+                str += '<tr>';
+                str += '<th>custID</th>';
+                str += '<th>dis-code</th>';
+                str += '<th>name</th>';
+                str += '<th>address</th>';
+                str += '<th>city</th>';
+                str += '<th>state</th>';
+                str += '<th>zip</th>';
+                str += '<th>phone</th>';
+                str += '<th>fax</th>';
+                str += '<th>email</th>';
+                str += '</tr>';
+                
+                for (var i = 0; i < items.length; i += 1) {
+                    var item = items[i].ref;
+                    str += '<tr>';
+                    str += '<td>' + item.customerId + '</td>';
+                    str += '<td>' + item.discountCode.discountCode + '</td>';
+                    str += '<td>' + item.name + '</td>';
+                    str += '<td>' + item.addressline1 + '<br />' + item.addressline2 + '</td>';
+                    str += '<td>' + item.city + '</td>';
+                    str += '<td>' + item.state + '</td>';
+                    str += '<td>' + item.zip.zipCode + '</td>';
+                    str += '<td>' + item.phone + '</td>';
+                    str += '<td>' + item.fax + '</td>';
+                    str += '<td>' + item.email + '</td>';
+                    str += '</tr>';
+
+                    if (!custs[item.discountCode.discountCode]) {
+                        custs[item.discountCode.discountCode] = '';
+                    }
+
+                    custs[item.discountCode.discountCode] += item.customerId + ', ';
+                }
+
+                str += '</table>';
+                
+                document.getElementById('resources').innerHTML = str;
+            }
+            
+            /**
+             * Generates the form contents for searching for customers in 
+             * the database
+             */
+            function generateInputString () {
+                var inputStr = "";
+                var prop;
+                var input;
+                
+                for (prop in inputs) {
+                    input = inputs[prop];
+                    inputStr += "<tr>";
+                    inputStr += "<td>" + input.display + "</td>";
+                    inputStr += "<td>";
+                    inputStr += "<select onchange='setComparison(this, \"" + prop + "\")'>";
+                    inputStr += "<option value='='>Equals</option>";
+                    inputStr += "<option value='|'>Contains</option>";
+                    inputStr += "</select></td>";
+                    inputStr += "<td><input type='text' onchange='setValue(this, \"" + prop + "\")' /></td>";
+                    inputStr += "</tr>";
+                }
+                return inputStr;
+            }
+            
+            /**
+             * Sets the comparison method for an input.
+             * e.g. sets the search for cities to be done via "Contains" 
+             * operation. 
+             */
+            function setComparison (select, prop) {
+                inputs[prop].comparison = select.value;
+            }
+            
+            /**
+             * Sets the value of an input;
+             * e.g. sets the value of a search for the city field
+             */
+            function setValue (input, prop) {
+                inputs[prop].value = input.value;
+            }
+            
+            /**
+             * Initializes the inputs object so that all inputs are using
+             * the equals comparison.
+             */
+            function initializeInputs () {
+                var prop;
+                for (prop in inputs) {
+                    inputs[prop].comparison = '=';
+                }
+            }
+            
+            document.getElementById('submit').addEventListener('click', load);
+            document.getElementById('inputs').innerHTML += generateInputString();
+        </script>
+    </body>
+</html>

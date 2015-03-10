@@ -22,8 +22,8 @@ Entities_customer.prototype = {
             return -1;
         }
     },
-    getEntities: function() {
-        return this.findAll(null);
+    getEntities: function(search) {
+        return this.findAll(search);
     },
     /* Method findAll with HTTP request metod GET, its return type is array of Customer  */
     findAll: function(uri_) {
